@@ -1,0 +1,50 @@
+{
+  "name": "react-template",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Ry Scott",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "webpack --mode=development -w",
+    "dev": "webpack serve --open",
+    "server": "node server/index.js -w",
+    "deploy": "gh-pages -d client/dist"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "babel-plugin-file-loader": "^2.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.18.2",
+    "firebase": "^10.13.0",
+    "fs": "^0.0.1-security",
+    "gh-pages": "^6.1.1",
+    "mongoose": "^6.8.3",
+    "morgan": "^1.10.0",
+    "openai": "^4.57.0",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "ryscott-st": "^1.0.2",
+    "util": "file:client/src/util"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "axios": "^1.2.2",
+    "babel-loader": "^9.1.0",
+    "compression-webpack-plugin": "^11.1.0",
+    "css-loader": "^6.7.2",
+    "date-fns": "^2.29.3",
+    "dotenv-webpack": "^8.0.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0",
+    "webpack-dev-server": "^4.11.1"
+  }
+}

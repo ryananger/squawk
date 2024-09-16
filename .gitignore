@@ -1,0 +1,5 @@
+/client/dist/bundle.js
+/client/dist/bundle.js.LICENSE.txt
+/node_modules/
+.env
+techTree_home.pem
