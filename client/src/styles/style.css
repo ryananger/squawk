@@ -2,6 +2,8 @@
   --brown: #86716a;
   --gold: #ffbc90;
   --salmon: #ff9d90;
+  
+  --pink: #ffe0dc;
   --darkSalmon: #a0483c;
   --leaf: #d1e275;
   --sky: #41aadd;
@@ -23,7 +25,7 @@
 }
 
 html {
-  background: radial-gradient(circle at right, #a1eb8e59, transparent 90%);
+  background: linear-gradient(180deg, #eb8e9a59, transparent 90%);
   background-color: var(--bg);
 }
 
@@ -38,7 +40,7 @@ html, body, #root {
   padding: 0;
   margin: 0;
   font-family: Jost;
-  font-size: 2.4vh;
+  font-size: 1em;
 }
 
 #app {
@@ -49,7 +51,7 @@ html, body, #root {
   justify-content: flex-start;
   align-items: center;
   overflow: scroll;
-  color: var(--grass);
+  color: var(--salmon);
 }
 
 h1, h2, h3 {
@@ -96,7 +98,7 @@ p {
   padding: 1vh;
   border-radius: 25px;
   box-shadow: 0 2px 3px #2a2a2a;
-  background-color: var(--grass);
+  background-color: var(--salmon);
   color: var(--bg);
   font-size: 18px;
 }
@@ -132,35 +134,61 @@ div {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--grass);
+  background-color: var(--salmon);
 }
 
 /**/
 
 input {
-  width: 240px
+  background-color: var(--pink);
 }
 
 input,
 button {
   height: 36px;
+  width: 240px;
   border: none;
   outline: none;
   margin: 1vh;
   padding: 1vh;
   box-sizing: border-box;
-  background-color: var(--grass);
   border-radius: 1vh;
+  font-family: Jost;
 }
 
 button {
   cursor: pointer;
+  color: var(--bg);
+  background-color: var(--salmon);
 }
 
 button:hover {
   background-color: var(--lemon);
 }
 
-.agentOutput {
-  font-size: 14px;
+/* LOGIN */
+
+#loginFloat {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loginForm {
+  width: 280px;
+  height: 360px;
+  border-radius: 1vh;
+  background-color: var(--bg);
+}
+
+.closeIcon {
+  position: absolute;
+  right: 1vh;
+  top: 1vh;
+  cursor: pointer;
+}
+
+.signUpText {
+  cursor: pointer;
 }
