@@ -9,7 +9,7 @@ const Login = function() {
 
   var handleClose = function(e) {
     if (e.target.id === 'loginFloat') {
-      st.setView('find');
+      st.setView('home');
     }
   };
 
@@ -34,12 +34,14 @@ const Login = function() {
     } else {
       firebase.signIn(form.email.value, form.pass.value);
     }
+
+    st.setView('home');
   };
 
   var renderForm = function() {
     return (
       <form id='loginForm' className='loginForm anchor v' onSubmit={handleSubmit} autoComplete='off'>
-        <icons.CloseIcon className='closeIcon' onClick={()=>{st.setView('find')}}/>
+        <icons.CloseIcon className='closeIcon' onClick={()=>{st.setView('home')}}/>
 
         <div className='formBody v'>
           <div className='loginInputs v'>
