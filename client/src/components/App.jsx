@@ -48,8 +48,15 @@ const App = function() {
     }
   };
 
+  var handleView = function() {
+    if (view !== 'messageView') {
+      setMessageWith(null);
+    }
+  };
+
   useEffect(handleCookie, []);
   useEffect(handleSearch, [search]);
+  useEffect(handleView, [view]);
   useEffect(handleMessageView, [messageWith]);
 
   return (

@@ -50,7 +50,7 @@ html, body, #root {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow: scroll;
+  /* overflow: scroll; */
   color: var(--salmon);
 }
 
@@ -240,6 +240,17 @@ button:hover {
 
 /* SEARCH */
 
+#searchInput {
+  background: none;
+  border: 1px solid var(--salmon);
+  border-radius: 4px;
+  color: var(--salmon);
+}
+
+#searchInput::placeholder {
+  color: var(--salmon);
+}
+
 .searchResult {
   width: 240px;
   padding: 1vh;
@@ -255,5 +266,32 @@ button:hover {
 
 .messageWith {
   margin: 4px;
+  cursor: pointer;
+}
+
+.messageView {
+  width: 600px;
+  max-width: 95%;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+#messageInput {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--salmon);
+  border-radius: 4px;
+  color: var(--salmon);
+}
+
+.message {
+
+}
+
+.friendHandle {
+  padding: 0 1vh;
+  margin: 6px;
+  border: 1px solid;
+  border-radius: 4px;
   cursor: pointer;
 }

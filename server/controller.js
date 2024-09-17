@@ -58,7 +58,7 @@ var controller = {
     const sendee = await User.findOne({_id: req.body.sendee});
 
     var senderMessage = {user: sender._id, sentTo: sendee._id, text: `you have added ${sendee.username}.`, type: 'pendFriend'};
-    var sendeeMessage = {user: sendee._id, sentTo: sender._id, text: `${sendee.username} has added you.`, type: 'acceptFriend'};
+    var sendeeMessage = {user: sendee._id, sentTo: sender._id, text: `${sender.username} has added you.`, type: 'acceptFriend'};
 
     await Message.create(senderMessage);
     await Message.create(sendeeMessage);
