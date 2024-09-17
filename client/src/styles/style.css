@@ -96,7 +96,7 @@ p {
   min-width: 200px;
   width: max-content;
   padding: 1vh;
-  border-radius: 25px;
+  border-radius: 1vh;
   box-shadow: 0 2px 3px #2a2a2a;
   background-color: var(--salmon);
   color: var(--bg);
@@ -183,7 +183,7 @@ button:hover {
 /* NAV */
 
 .nav {
-  padding: 0.5vh;
+  padding: 6px;
   width: 100%;
   justify-content: space-between;
   background: #2a2a2a94;

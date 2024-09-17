@@ -6,6 +6,7 @@ import {ax, firebase, helpers} from 'util';
 
 const Login = function() {
   const [signUp, setSignUp] = useState(false);
+  const [usernameOkay, setUsernameOkay] = useState(false);
 
   var handleClose = function(e) {
     if (e.target.id === 'loginFloat') {
@@ -19,6 +20,11 @@ const Login = function() {
     var form = e.target;
 
     if (signUp) {
+      if (!usernameOkay) {
+        helpers.alert('Username is taken!');
+        return;
+      }
+
       if (form.pass.value !== form.pass2.value) {
         helpers.alert('Passwords do not match!');
         return;
@@ -38,6 +44,16 @@ const Login = function() {
     st.setView('home');
   };
 
+  var checkUsername = async function(e) {
+    if (e.target.value.length >= 2) {
+      var taken = await ax.checkUsername(e.target.value);
+
+      if (!taken) {
+        setUsernameOkay(true);
+      }
+    }
+  };
+
   var renderForm = function() {
     return (
       <form id='loginForm' className='loginForm anchor v' onSubmit={handleSubmit} autoComplete='off'>
@@ -45,7 +61,7 @@ const Login = function() {
 
         <div className='formBody v'>
           <div className='loginInputs v'>
-            {signUp && <input className='formInput' name='username' autoComplete='off' type='text' placeholder='username?'/>}
+            {signUp && <input className='formInput' name='username' autoComplete='off' type='text' placeholder='username?' onChange={checkUsername}/>}
 
             <input className='formInput' name='email' autoComplete='off' type='text'     placeholder='email address?'/>
             <input className='formInput' name='pass'  autoComplete='off' type='password' placeholder='password?'/>

@@ -20,6 +20,11 @@ var ax = {
         st.setUser(user);
         document.cookie = `user=${uid}`;
       })
+  },
+  checkUsername: async function(username) {
+    const response = await axios.get(process.env.URL + 'api/users/checkUsername/' + username, header);
+
+    return response.data;
   }
 };
 

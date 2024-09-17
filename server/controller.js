@@ -15,6 +15,16 @@ var controller = {
         res.json(user);
       })
   },
+  checkUsername: function(req, res) {
+    User.findOne({username: req.params.username})
+      .then(function(user) {
+        if (user) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
+      })
+  },
 
   fix: async function(req, res) {
     // Post.deleteMany({})
