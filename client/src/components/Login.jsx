@@ -20,6 +20,11 @@ const Login = function() {
     var form = e.target;
 
     if (signUp) {
+      if (form.username.value < 2) {
+        helpers.alert('Username is too short!');
+        return;
+      }
+      
       if (!usernameOkay) {
         helpers.alert('Username is taken!');
         return;

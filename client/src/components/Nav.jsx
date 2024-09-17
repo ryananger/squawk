@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 
 import st from 'ryscott-st';
 import icons from 'icons';
-import {firebase} from '../util';
+import {ax, firebase} from '../util';
 
 const Nav = function() {
+  const input = useRef(null);
+
   var logOut = function() {
     firebase.logOut();
     st.setUser(null);
@@ -12,11 +14,28 @@ const Nav = function() {
     document.cookie = 'user=';
   };
 
+  var searchForUsers = function(e) {
+    if (e.target.value.length >= 2) {
+      ax.searchForUsers(e.target.value);
+    }
+  };
+
+  var handleView = function() {
+    if (st.view !== 'search' && input.current) {
+      input.current.value = '';
+    }
+  };
+
+  useEffect(handleView, [st.view]);
+
   return (
     <div className='nav h'>
-      <h3>squawk</h3>
-      {st.user && <icons.LogoutIcon className='icon' size={32} onClick={logOut}/>}
-      {!st.user && <icons.LoginIcon className='icon' size={32} onClick={()=>{st.setView('login')}}/>}
+      <h3 className='icon h c' onClick={()=>{st.setView('home')}}>squawk</h3>
+      {st.user && <input ref={input} id='searchInput' placeholder='search for users' onChange={searchForUsers}/>}
+      <div className='h'>
+        {st.user && <icons.LogoutIcon className='icon' size={32} onClick={logOut}/>}
+        {!st.user && <icons.LoginIcon className='icon' size={32} onClick={()=>{st.setView('login')}}/>}
+      </div>
     </div>
   );
 };

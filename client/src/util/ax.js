@@ -25,6 +25,17 @@ var ax = {
     const response = await axios.get(process.env.URL + 'api/users/checkUsername/' + username, header);
 
     return response.data;
+  },
+  searchForUsers: async function(username) {
+    const response = await axios.get(process.env.URL + 'api/users/searchForUsers/' + username, header);
+
+    st.setSearch(response.data);
+  },
+  addFriend: function(sender, sendee) {
+    axios.post(process.env.URL + 'api/users/addFriend/', {sender, sendee}, header)
+      .then(function(response) {
+        st.setUser(response.data);
+      })
   }
 };
 

@@ -48,6 +48,8 @@ app.use(validateClient);
 app.post('/api/users', controller.createUser);
 app.get('/api/users/:uid', controller.getUser);
 app.get('/api/users/checkUsername/:username', controller.checkUsername);
+app.get('/api/users/searchForUsers/:username', controller.searchForUsers);
+app.post('/api/users/addFriend', controller.addFriend);
 
 // app.get('/api/fix', controller.fix);
 

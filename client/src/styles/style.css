@@ -123,6 +123,13 @@ div {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+.bar {
+  width: 240px;
+  padding: 1vh;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
 /* SCROLLBAR */
 
 ::-webkit-scrollbar {
@@ -189,6 +196,21 @@ button:hover {
   background: #2a2a2a94;
 }
 
+.nav h3,
+.nav div {
+  width: 180px;
+  height: 32px;
+}
+
+.nav div {
+  justify-content: flex-end;
+}
+
+.nav input {
+  margin: 0;
+  height: 28px;
+}
+
 /* LOGIN */
 
 #loginFloat {
@@ -213,5 +235,25 @@ button:hover {
 }
 
 .signUpText {
+  cursor: pointer;
+}
+
+/* SEARCH */
+
+.searchResult {
+  width: 240px;
+  padding: 1vh;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+/* MESSAGES */
+
+.messagesView {
+  padding: 1vh;
+}
+
+.messageWith {
+  margin: 4px;
   cursor: pointer;
 }
