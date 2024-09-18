@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const {User, Message} = require('./db.js');
 
+const {getIO} = require('./io.js');
+const io = getIO();
+
 var controller = {
   createUser: function(req, res) {
     User.create(req.body)
@@ -20,20 +23,45 @@ var controller = {
       })
   },
   getMessagesForUser: async function(_id) {
-    var messages = await Message.find({user: _id}).populate('sentTo');
-
-    newMessages = {};
-
-    messages.map(function(message) {
-      if (!newMessages[message.sentTo._id]) {
-        newMessages[message.sentTo._id] = [];
+    var sentMessages = await Message.find({ user: _id }).populate('sentTo');
+    var receivedMessages = await Message.find({ sentTo: _id }).populate('user');
+  
+    let newMessages = {};
+  
+    // Combine both sent and received messages
+    const allMessages = [...sentMessages, ...receivedMessages];
+  
+    allMessages.forEach(function(message) {
+      // Determine who the conversation is with
+      let otherUserId;
+      
+      if (message.sentTo._id.toString() === _id.toString()) {
+        otherUserId = message.user._id; // Received message, so other person is the sender
+  
+        // Exclude the message if it was sent by the other user AND has a 'type' key
+        if (message.type) {
+          return; // Skip this message
+        }
+      } else {
+        otherUserId = message.sentTo._id; // Sent message, so other person is the recipient
       }
-
-      newMessages[message.sentTo._id].push(message);
-    })
-
+  
+      // Initialize array if it doesn't exist
+      if (!newMessages[otherUserId]) {
+        newMessages[otherUserId] = [];
+      }
+  
+      // Push message into the corresponding array
+      newMessages[otherUserId].push(message);
+    });
+  
+    // Sort messages by createdOn date for each user
+    Object.keys(newMessages).forEach(userId => {
+      newMessages[userId].sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
+    });
+  
     return newMessages;
-  },
+  },  
   checkUsername: function(req, res) {
     User.findOne({username: req.params.username})
       .then(function(user) {
@@ -55,8 +83,10 @@ var controller = {
     const sender = await User.findOne({_id: req.body.sender});
     const sendee = await User.findOne({_id: req.body.sendee});
 
-    var senderMessage = {user: sender._id, sentTo: sendee._id, text: `you have added ${sendee.username}.`, type: 'pendFriend'};
-    var sendeeMessage = {user: sendee._id, sentTo: sender._id, text: `${sender.username} has added you.`, type: 'acceptFriend'};
+    const chatId = sender._id + sendee._id;
+
+    var senderMessage = {user: sender._id, sentTo: sendee._id, chatId: chatId, text: `you have added ${sendee.username}.`, type: 'pendFriend'};
+    var sendeeMessage = {user: sendee._id, sentTo: sender._id, chatId: chatId, text: `${sender.username} has added you.`, type: 'acceptFriend'};
 
     await Message.create(senderMessage);
     await Message.create(sendeeMessage);
@@ -83,11 +113,13 @@ var controller = {
     const sender = await User.findOne({_id: req.body.sender});
     const sendee = await User.findOne({_id: req.body.sendee});
 
+    const chatId = sender._id + sendee._id;
+
     await Message.deleteOne({user: sender._id, sentTo: sendee._id});
     await Message.deleteOne({user: sendee._id, sentTo: sender._id});
 
-    var senderMessage = {user: sender._id, sentTo: sendee._id, text: `${sendee.username} has accepted your friend request.`};
-    var sendeeMessage = {user: sendee._id, sentTo: sender._id, text: `you have accepted the friend request from ${sender.username}.`};
+    var senderMessage = {user: sender._id, sentTo: sendee._id, chatId: chatId, text: `${sendee.username} has accepted your friend request.`, type: 'friend'};
+    var sendeeMessage = {user: sendee._id, sentTo: sender._id, chatId: chatId, text: `you have accepted the friend request from ${sender.username}.`, type: 'friend'};
 
     await Message.create(senderMessage);
     await Message.create(sendeeMessage);
@@ -97,18 +129,16 @@ var controller = {
 
     res.sendStatus(201);
   },
+  sendMessage: async function(req, res) {
+    await Message.create(req.body);
+
+    io.to(req.body.chatId).emit('newMessage');
+
+    res.sendStatus(201);
+  },
 
   fix: async function(req, res) {
-    // Post.deleteMany({})
-    //   .then(function() {
-    //     console.log('Posts deleted.');
-    //   })
-
-    // await User.updateMany({}, {messages: {}});
-    // await Community.updateMany({}, {messages: []});
-    // await Message.deleteMany({});
-
-    // res.send('yay');
+    await Message.delete({});
   }
 };
 

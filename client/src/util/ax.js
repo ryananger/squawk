@@ -51,6 +51,12 @@ var ax = {
         ax.getUser(st.user.uid);
       })
   },
+  sendMessage: function(message) {
+    axios.post(process.env.URL + 'api/messages/', message, header)
+      .then(function(response) {
+        ax.getUser(st.user.uid);
+      })
+  }
 };
 
 export default ax;

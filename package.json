@@ -20,6 +20,7 @@
     "firebase": "^10.13.0",
     "fs": "^0.0.1-security",
     "gh-pages": "^6.1.1",
+    "icons": "file:client/src/icons",
     "mongoose": "^6.8.3",
     "morgan": "^1.10.0",
     "openai": "^4.57.0",
@@ -28,8 +29,9 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
     "ryscott-st": "^1.0.2",
-    "util": "file:client/src/util",
-    "icons": "file:client/src/icons"
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "util": "file:client/src/util"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

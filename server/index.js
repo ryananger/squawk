@@ -9,6 +9,11 @@ const cors   = require('cors');
 const path   = require('path');
 const router = express.Router();
 const app    = express();
+const {initSocket} = require('./io.js');
+const server = http.createServer(app);
+
+initSocket(server);
+
 const controller = require('./controller.js');
 
 const dist = path.join(__dirname, '../client/dist');
@@ -52,11 +57,12 @@ app.get('/api/users/searchForUsers/:username', controller.searchForUsers);
 app.post('/api/users/addFriend', controller.addFriend);
 app.post('/api/users/cancelFriend', controller.cancelFriend);
 app.post('/api/users/acceptFriend', controller.acceptFriend);
+app.post('/api/messages/', controller.sendMessage);
 
 // app.get('/api/fix', controller.fix);
 
 const PORT = 4001;
 
-http.createServer(app).listen(PORT);
+server.listen(PORT);
 //https.createServer(options, app).listen(443);
 console.log(`Server listening at http://localhost:${PORT}`);

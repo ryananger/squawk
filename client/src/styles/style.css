@@ -308,7 +308,10 @@ button:hover {
 }
 
 .message {
-
+  border: 1px solid;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin: 4px 0;
 }
 
 .friendHandle {

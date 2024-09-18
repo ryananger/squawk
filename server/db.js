@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
 const messageSchema = new mongoose.Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   sentTo: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  chatId: String,
   text: String,
   type: String,
   media: [],
