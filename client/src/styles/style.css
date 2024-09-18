@@ -276,12 +276,35 @@ button:hover {
   justify-content: flex-end;
 }
 
-#messageInput {
+#messageInputContainer {
   width: 100%;
+  height: 60px;
   background: none;
   border: 1px solid var(--salmon);
   border-radius: 4px;
   color: var(--salmon);
+  margin: 1vh;
+}
+
+#messageInput {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  margin: 0;
+  background: none;
+  color: var(--salmon);
+  border: none;
+  resize: none;
+  outline: none;
+  font-family: Jost;
+}
+
+#messageInputContainer div {
+  border: 1px solid;
+  border-style: none none none solid;
+  padding: 0 1vh;
+  cursor: pointer;
+  height: 100%;
 }
 
 .message {
