@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const {User, Message} = require('./db.js');
-
+const {encrypt, decrypt} = require('./encryption.js');
 const {getIO} = require('./io.js');
 const io = getIO();
 
@@ -49,6 +49,12 @@ var controller = {
       // Initialize array if it doesn't exist
       if (!newMessages[otherUserId]) {
         newMessages[otherUserId] = [];
+      }
+
+      if (!message.type) {
+        const decrypted = decrypt(message.text);
+
+        message.text = decrypted;
       }
   
       // Push message into the corresponding array
@@ -130,6 +136,10 @@ var controller = {
     res.sendStatus(201);
   },
   sendMessage: async function(req, res) {
+    const encrypted = encrypt(req.body.text);
+
+    req.body.text = encrypted;
+
     await Message.create(req.body);
 
     io.to(req.body.chatId).emit('newMessage');
