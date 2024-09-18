@@ -34,9 +34,23 @@ var ax = {
   addFriend: function(sender, sendee) {
     axios.post(process.env.URL + 'api/users/addFriend/', {sender, sendee}, header)
       .then(function(response) {
-        st.setUser(response.data);
+        ax.getUser(st.user.uid);
       })
-  }
+  },
+  cancelFriend: function(sender, sendee) {
+    axios.post(process.env.URL + 'api/users/cancelFriend/', {sender, sendee}, header)
+      .then(function(response) {
+        st.setView('home');
+        st.setMessageWith(null);
+        ax.getUser(st.user.uid);
+      })
+  },
+  acceptFriend: function(sender, sendee) {
+    axios.post(process.env.URL + 'api/users/acceptFriend/', {sender, sendee}, header)
+      .then(function(response) {
+        ax.getUser(st.user.uid);
+      })
+  },
 };
 
 export default ax;

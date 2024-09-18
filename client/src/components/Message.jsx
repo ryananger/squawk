@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from 'react';
 
 import st from 'ryscott-st';
+import {ax} from 'util';
 
 const Message = function({message}) {
   const userMessage = st.user._id === message.user;
 
-  var handleType = function() {
+  var handlePending = function() {
     if (message.type === 'pendFriend') {
       return (
-        <div className='friendHandle'>cancel</div>
+        <div className='friendHandle' onClick={()=>{ax.cancelFriend(st.user._id, message.sentTo)}}>cancel</div>
       )
     }
 
     if (message.type === 'acceptFriend') {
       return (
         <div className='h'>
-          <div className='friendHandle'>accept</div>
-          <div className='friendHandle'>deny</div>
+          <div className='friendHandle' onClick={()=>{ax.acceptFriend(message.sentTo, st.user._id)}}>accept</div>
+          <div className='friendHandle' onClick={()=>{ax.cancelFriend(message.sentTo, st.user._id)}}>deny</div>
         </div>
       )
     }
@@ -25,7 +26,7 @@ const Message = function({message}) {
   return (
     <div className='message v c' style={{alignSelf: userMessage ? 'end' : 'start'}}>
       {message.text}
-      {handleType()}
+      {handlePending()}
     </div>
   );
 };

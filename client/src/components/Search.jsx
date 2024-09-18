@@ -13,7 +13,7 @@ const Search = function() {
       rendered.push(
         <div key={'result' + i} className='searchResult h'>
           {result.username}
-          <HandleFriend entry={result}/>
+          {result.username !== st.user.username && <HandleFriend entry={result}/>}
         </div>
       )
     })
