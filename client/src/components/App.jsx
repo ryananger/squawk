@@ -11,6 +11,7 @@ import Home from './Home.jsx';
 import Nav from './Nav.jsx';
 import Search from './Search.jsx';
 import MessageView from './MessageView.jsx';
+import AdsterraAd from './AdsterraAd.jsx';
 
 const cookie = helpers.cookieParse();
 
@@ -63,7 +64,11 @@ const App = function() {
     <div id='app' className='app texture v'>
       <Alert/>
       {view !== 'landing' && <Nav/>}
-      {views[view]}
+      <div className='main h'>
+        <AdsterraAd/>
+        {views[view]}
+        <AdsterraAd/>
+      </div>
     </div>
   );
 };
