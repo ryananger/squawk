@@ -286,7 +286,7 @@ button:hover {
 .messageView {
   width: 600px;
   max-width: 98%;
-  height: calc(100% - 44px);
+  height: 100%;
   justify-content: flex-end;
 }
 
