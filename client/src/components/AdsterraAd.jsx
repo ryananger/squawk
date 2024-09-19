@@ -34,7 +34,7 @@ const AdsterraAd = function({adKey, width, height}) {
   }, []); // Empty dependency array means this runs once when the component mounts
 
   return (
-    <div ref={ad} className='tallAd'>
+    <div ref={ad} className='tallAd' style={{width: width + 'px', height: height + 'px'}}>
       {/* Ad will be injected here */}
     </div>
   );
