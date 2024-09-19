@@ -50,6 +50,7 @@ const MessageView = function() {
       socket.emit('joinChat', chatId);
 
       setJoined(true);
+      ax.getUser(st.user.uid);
     }
   };
 
