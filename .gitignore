@@ -4,3 +4,4 @@
 /client/dist/bundle.js.LICENSE.txt.gz
 /node_modules/
 .env
+squawk.pem
