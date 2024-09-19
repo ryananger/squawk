@@ -1,9 +1,9 @@
 const crypto = require('crypto');
 const algorithm = 'aes-256-cbc'; // Encryption algorithm
-const secretKey = 'happyfrogsdancealotalonetogether';
-const iv = crypto.randomBytes(16); // Initialization vector
+const secretKey = process.env.ENCRYPT_KEY; // Initialization vector
 
 const encrypt = function(message) {
+  const iv = crypto.randomBytes(16);
   const cipher = crypto.createCipheriv(algorithm, Buffer.from(secretKey), iv);
 
   let encrypted = cipher.update(message);

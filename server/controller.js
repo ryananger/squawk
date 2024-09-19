@@ -148,7 +148,9 @@ var controller = {
   },
 
   fix: async function(req, res) {
-    await Message.delete({});
+    await Message.deleteMany({type: {$exists: false }});
+
+    res.send('yay');
   }
 };
 

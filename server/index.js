@@ -43,6 +43,8 @@ const validateClient = function (req, res, next) {
   }
 };
 
+app.get('/api/fix', controller.fix);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -59,7 +61,6 @@ app.post('/api/users/cancelFriend', controller.cancelFriend);
 app.post('/api/users/acceptFriend', controller.acceptFriend);
 app.post('/api/messages/', controller.sendMessage);
 
-// app.get('/api/fix', controller.fix);
 
 const PORT = 4001;
 

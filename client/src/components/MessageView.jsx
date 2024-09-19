@@ -21,8 +21,18 @@ const MessageView = function() {
     return rendered;
   };
 
+  var handleKey = function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+
+      handleSubmit();
+    }
+  };
+
   var handleSubmit = function() {
     var input = document.getElementById('messageInput').value;
+
+    if (!input) {return};
 
     var message = {
       user: st.user._id,
@@ -32,6 +42,7 @@ const MessageView = function() {
     };
 
     ax.sendMessage(message);
+    document.getElementById('messageInput').value = '';
   };
 
   var joinChat = function() {
@@ -43,16 +54,30 @@ const MessageView = function() {
   };
 
   useEffect(joinChat, []);
+  useEffect(scrollToBottom, [st.user]);
 
   return (
     <div className='messageView v c'>
-      {renderMessages()}
+      <div id='messages' className='messages v'>
+        {renderMessages()}
+      </div>
       <div id='messageInputContainer' className='h'>
-        <textarea id='messageInput' className='h'/>
+        <textarea id='messageInput' className='h' onKeyDown={handleKey}/>
         <div className='v c' onClick={handleSubmit}>send</div>
       </div>
     </div>
   );
+};
+
+var scrollToBottom = function() {
+  const messages = document.getElementById('messages');
+  
+  if (messages) {
+    messages.scrollTo({
+      top: messages.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
 };
 
 export default MessageView;
