@@ -3,7 +3,7 @@ import {io} from 'socket.io-client';
 import st from 'ryscott-st';
 import {ax} from 'util';
 
-const socket = io('http://localhost:4001/');
+const socket = io(process.env.URL);
 
 socket.on('newMessage', ()=>{
   ax.getUser(st.user.uid);
