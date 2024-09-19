@@ -48,6 +48,7 @@ var signIn = function(email, password) {
       ax.getUser(user.uid, true);
     })
     .catch((error) => {
+      helpers.alert('Login unsuccessful!');
       console.log(error);
     });
 };
@@ -77,43 +78,11 @@ var logOut = function() {
   });
 };
 
-var uploadBlob = async function(file, path, resolve) {
-  const imgRef = ref(storageRef, path);
-  const meta = {contentType: file.type, cacheControl: 'public, max-age=31536000'};
-
-  var url;
-
-  uploadBytes(imgRef, file, meta).then(async (snapshot) => {
-    url = await getDownloadURL(imgRef);
-
-    if (resolve) {resolve(url)};
-  });
-};
-
-var updateMeta = function(path) {
-  const imgRef = ref(storage, path);
-
-  updateMetadata(imgRef, {cacheControl: 'public, max-age=31536000'})
-    .then((metadata)=>{
-      console.log(metadata);
-    })
-};
-
-var getURL = async function(path) {
-  var gsRef = ref(storage, 'gs://communitii.appspot.com/images/' + path);
-  var url = await getDownloadURL(gsRef);
-
-  return url;
-};
-
 var methods = {
   signUp,
   signIn,
   updatePass,
-  logOut,
-  uploadBlob,
-  getURL,
-  updateMeta
+  logOut
 };
 
 export default methods;
