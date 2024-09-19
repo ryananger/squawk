@@ -137,6 +137,7 @@ div {
 
 .tallAd {
   flex: none;
+  margin: 1vh;
 }
 
 /* SCROLLBAR */
