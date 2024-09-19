@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 
-const AdsterraAd = function() {
+const AdsterraAd = function({adKey, width, height}) {
   const ad = useRef(null);
 
   useEffect(()=>{
@@ -9,10 +9,10 @@ const AdsterraAd = function() {
     script1.type = 'text/javascript';
     script1.innerHTML = `
       atOptions = {
-        'key' : '115bdc4d67a6e86c1bfa586be28dccc2',
+        'key' : '${adKey}',
         'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
+        'height' : ${height},
+        'width' : ${width},
         'params' : {}
       };
     `;
@@ -20,7 +20,7 @@ const AdsterraAd = function() {
     // Create the second script that points to Adsterra's invoke.js
     const script2 = document.createElement('script');
     script2.type = 'text/javascript';
-    script2.src = '//www.topcreativeformat.com/115bdc4d67a6e86c1bfa586be28dccc2/invoke.js';
+    script2.src = `//www.topcreativeformat.com/${adKey}/invoke.js`;
 
     // Append both scripts to the div where the ad will be placed
     ad.current.appendChild(script1);
