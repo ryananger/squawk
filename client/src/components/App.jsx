@@ -65,9 +65,9 @@ const App = function() {
       <Alert/>
       {view !== 'landing' && <Nav/>}
       <div className='main h'>
-        {view !== 'landing' && <AdsterraAd adKey='98ff4128473e4fed138f66e9970d346e' width={160} height={300}/>}
+        {view !== 'landing' && <AdsterraAd adKey='98ff4128473e4fed138f66e9970d346e' type='tallAd' width={160} height={300}/>}
         {views[view]}
-        {view !== 'landing' && <AdsterraAd adKey='115bdc4d67a6e86c1bfa586be28dccc2' width={160} height={600}/>}
+        {view !== 'landing' && <AdsterraAd adKey='115bdc4d67a6e86c1bfa586be28dccc2' type='tallAd' width={160} height={600}/>}
       </div>
     </div>
   );

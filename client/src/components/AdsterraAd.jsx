@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 
-const AdsterraAd = function({adKey, width, height}) {
+const AdsterraAd = function({adKey, width, height, type}) {
   const ad = useRef(null);
 
   useEffect(()=>{
@@ -34,7 +34,7 @@ const AdsterraAd = function({adKey, width, height}) {
   }, []); // Empty dependency array means this runs once when the component mounts
 
   return (
-    <div ref={ad} className='tallAd' style={{width: width + 'px', height: height + 'px'}}>
+    <div ref={ad} className={type} style={{width: width + 'px', height: height + 'px'}}>
       {/* Ad will be injected here */}
     </div>
   );
