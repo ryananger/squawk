@@ -251,6 +251,11 @@ button:hover {
 
 /* SEARCH */
 
+.search {
+  height: 100%;
+  justify-content: flex-start;
+}
+
 #searchInput {
   background: none;
   border: 1px solid var(--salmon);
