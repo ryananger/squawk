@@ -65,10 +65,14 @@ const App = function() {
       <Alert/>
       {view !== 'landing' && <Nav/>}
       <div className='main h'>
-        {view !== 'landing' && <AdsterraAd adKey='98ff4128473e4fed138f66e9970d346e' type='tallAd' width={160} height={300}/>}
+        <div/>
         {views[view]}
-        {view !== 'landing' && <AdsterraAd adKey='115bdc4d67a6e86c1bfa586be28dccc2' type='tallAd' width={160} height={600}/>}
+        <div/>
       </div>
+      {view !== 'landing' &&
+      <div className='foot v c'>
+        support squawk, donate to $earthpunk2024
+      </div>}
     </div>
   );
 };

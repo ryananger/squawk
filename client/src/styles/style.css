@@ -135,6 +135,15 @@ div {
   height: 100%;
 }
 
+.foot {
+  height: 44px;
+  border: 1px solid;
+  border-style: solid none none;
+  border-bottom: 1px solid transparent;
+  width: 100%;
+  flex: none;
+}
+
 .tallAd {
   flex: none;
   margin: 1vh;
@@ -356,9 +365,5 @@ button:hover {
 @media (max-width: 1024px) {
   .tallAd {
     display: none;
-  }
-
-  .main {
-    justify-content: center;
   }
 }

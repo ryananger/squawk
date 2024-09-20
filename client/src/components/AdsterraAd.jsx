@@ -25,7 +25,7 @@ const AdsterraAd = function({adKey, width, height, type}) {
     // Append both scripts to the div where the ad will be placed
     ad.current.appendChild(script1);
     ad.current.appendChild(script2);
-  }, []); // Empty dependency array means this runs once when the component mounts
+  }, []);
 
   return (
     <div ref={ad} className={type} style={{width: width + 'px', height: height + 'px'}}>
