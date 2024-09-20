@@ -8,6 +8,7 @@ import Message from './Message.jsx';
 const MessageView = function() {
   const messages = st.user.messages[st.messageWith];
   const chatId = st.user.messages[st.messageWith][0].chatId;
+  const username = messages[0].sentTo.username;
 
   var renderMessages = function() {
     var rendered = [];
@@ -47,6 +48,9 @@ const MessageView = function() {
 
   return (
     <div className='messageView v c'>
+      <div className='messageViewHead h'>
+        {username}
+      </div>
       <div id='messages' className='messages v'>
         {renderMessages()}
       </div>

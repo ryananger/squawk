@@ -307,6 +307,13 @@ button:hover {
   justify-content: flex-end;
 }
 
+.messageViewHead {
+  width: 100%;
+  justify-content: center;
+  border-bottom: 1px solid;
+  padding: 4px;
+}
+
 #messageInputContainer {
   width: 100%;
   height: 60px;
@@ -385,7 +392,7 @@ button:hover {
 }
 
 @media (max-width: 1024px) {
-  .tallAd {
-    display: none;
+  .messageViewHead {
+    width: 100svw;
   }
 }
