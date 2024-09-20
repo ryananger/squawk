@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
 import st from 'ryscott-st';
-import {socket, ax} from 'util';
+import {ax} from 'util';
 
 import Message from './Message.jsx';
 
 const MessageView = function() {
-  const [joined, setJoined] = useState(false);
-
   const messages = st.user.messages[st.messageWith];
   const chatId = st.user.messages[st.messageWith][0].chatId;
 
@@ -45,16 +43,6 @@ const MessageView = function() {
     document.getElementById('messageInput').value = '';
   };
 
-  var joinChat = function() {
-    if (!joined) {
-      socket.emit('joinChat', chatId);
-
-      setJoined(true);
-      ax.getUser(st.user.uid);
-    }
-  };
-
-  useEffect(joinChat, []);
   useEffect(scrollToBottom, [st.user]);
 
   return (
