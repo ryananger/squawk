@@ -364,6 +364,26 @@ button:hover {
   cursor: pointer;
 }
 
+/* SETTINGS */
+
+.settingsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.settings {
+  width: 280px;
+  height: 360px;
+  border-radius: 1vh;
+  background-color: var(--bg);
+  text-align: center;
+  padding: 1vh;
+}
+
 @media (max-width: 1024px) {
   .tallAd {
     display: none;

@@ -12,6 +12,7 @@ import Nav from './Nav.jsx';
 import Search from './Search.jsx';
 import MessageView from './MessageView.jsx';
 import AdsterraAd from './AdsterraAd.jsx';
+import Settings from './Settings.jsx';
 
 const cookie = helpers.cookieParse();
 
@@ -28,7 +29,8 @@ const App = function() {
     login:   <Login/>,
     home:    <Home/>,
     search:  <Search/>,
-    messageView: <MessageView/>
+    messageView: <MessageView/>,
+    settings: <Settings/>
   };
 
   var handleCookie = function() {

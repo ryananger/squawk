@@ -52,7 +52,7 @@ const Home = function() {
 
   return (
     <div className='messagesView v'>
-      messages
+      {messages && 'messages'}
       {messages && renderMessageWith()}
     </div>
   );
