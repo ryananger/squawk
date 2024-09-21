@@ -56,6 +56,12 @@ var ax = {
       .then(function(response) {
         ax.getUser(st.user.uid);
       })
+  },
+  clearConversation: function(chatId) {
+    axios.post(process.env.URL + 'api/messages/clearConversation', {chatId: chatId, user: st.user._id}, header)
+      .then(function(response) {
+        ax.getUser(st.user.uid);
+      })
   }
 };
 

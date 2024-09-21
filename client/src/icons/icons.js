@@ -4,6 +4,7 @@ import {AiOutlineLogout as LogoutIcon,
         AiOutlineClose as CloseIcon} from 'react-icons/ai';
 import {BsPersonFillAdd as AddFriendIcon,
         BsPersonFillExclamation as PendFriendIcon} from 'react-icons/bs';
+import {IoIosArrowBack as BackIcon} from 'react-icons/io';
 
 const icons = {
   LoginIcon: LoginIcon,
@@ -11,7 +12,8 @@ const icons = {
   SettingsIcon: SettingsIcon,
   CloseIcon: CloseIcon,
   AddFriendIcon: AddFriendIcon,
-  PendFriendIcon: PendFriendIcon
+  PendFriendIcon: PendFriendIcon,
+  BackIcon: BackIcon
 };
 
 export default icons;

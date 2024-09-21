@@ -11,7 +11,6 @@ import Home from './Home.jsx';
 import Nav from './Nav.jsx';
 import Search from './Search.jsx';
 import MessageView from './MessageView.jsx';
-import AdsterraAd from './AdsterraAd.jsx';
 import Settings from './Settings.jsx';
 
 const cookie = helpers.cookieParse();

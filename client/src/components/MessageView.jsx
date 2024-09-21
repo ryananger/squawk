@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 
 import st from 'ryscott-st';
+import icons from 'icons';
 import {ax} from 'util';
 
 import Message from './Message.jsx';
+import ViewMessageOptions from './ViewMessageOptions.jsx';
 
 const MessageView = function() {
+  const [viewOptions, setViewOptions] = useState(false);
+
   const messages = st.user.messages[st.messageWith];
   const chatId = st.user.messages[st.messageWith][0].chatId;
   const username = messages[0].sentTo.username;
@@ -44,16 +48,29 @@ const MessageView = function() {
     document.getElementById('messageInput').value = '';
   };
 
+  var handleBackButton = function() {
+    if (viewOptions) {
+      setViewOptions(false);
+      return;
+    }
+
+    st.setView('home');
+  };
+
   useEffect(scrollToBottom, [st.user]);
 
   return (
     <div className='messageView v c'>
       <div className='messageViewHead h'>
+        <icons.BackIcon className='icon' size={20} onClick={handleBackButton}/>
         {username}
+        <icons.SettingsIcon className='icon' size={20} onClick={()=>{setViewOptions(true)}}/>
       </div>
+      {viewOptions && <ViewMessageOptions chatId={chatId} setViewOptions={setViewOptions}/>}
+      {!viewOptions && 
       <div id='messages' className='messages v'>
         {renderMessages()}
-      </div>
+      </div>}
       <div id='messageInputContainer' className='h'>
         <textarea id='messageInput' className='h' onKeyDown={handleKey}/>
         <div className='v c' onClick={handleSubmit}>send</div>

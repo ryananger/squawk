@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
   friendsPending: [String],
   unread: {type: Number, default: 0},
-  messages: Object
+  messages: {type: mongoose.Schema.Types.Mixed}
 }, {minimize: false});
 
 const messageSchema = new mongoose.Schema({

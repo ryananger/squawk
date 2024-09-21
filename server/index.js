@@ -60,6 +60,7 @@ app.post('/api/users/addFriend', controller.addFriend);
 app.post('/api/users/cancelFriend', controller.cancelFriend);
 app.post('/api/users/acceptFriend', controller.acceptFriend);
 app.post('/api/messages/', controller.sendMessage);
+app.post('/api/messages/clearConversation', controller.clearConversation);
 
 
 const PORT = 4001;

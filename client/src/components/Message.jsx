@@ -4,7 +4,7 @@ import st from 'ryscott-st';
 import {ax} from 'util';
 
 const Message = function({message}) {
-  const userMessage = st.user._id === message.user;
+  const userMessage = st.user._id === message.user._id;
 
   var handlePending = function() {
     if (message.type === 'pendFriend') {

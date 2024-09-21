@@ -6,8 +6,8 @@ import {ax, socket} from 'util';
 import MessageBar from './MessageBar.jsx';
 
 const Home = function() {
-  const [messages, setMessages] = st.newState('messages', useState(null));
   const [joined, setJoined] = useState(false);
+  const messages = st.user?.messages;
 
   var joinChats = function() {
     if (messages && !joined) {
@@ -44,10 +44,7 @@ const Home = function() {
     return rendered;
   };
 
-  useEffect(()=>{
-    setMessages(st.user?.messages || null);
-  }, [st.user]);
-
+  useEffect(()=>{}, [st.user]);
   useEffect(joinChats, [messages]);
 
   return (

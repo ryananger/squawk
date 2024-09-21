@@ -15,57 +15,57 @@ var controller = {
   getUser: function(req, res) {
     User.findOne({uid: req.params.uid})
       .then(async function(user) {
-        var messages = await controller.getMessagesForUser(user._id);
+        var messages = await controller.getMessagesForUser(user._id, user.messages);
 
         user.messages = messages;
 
         res.json(user);
       })
   },
-  getMessagesForUser: async function(_id) {
-    var sentMessages = await Message.find({ user: _id }).populate('sentTo');
-    var receivedMessages = await Message.find({ sentTo: _id }).populate('user');
+  getMessagesForUser: async function(_id, messages) {
+    var sentFriendMessages = await Message.find({user: _id, type: {$exists: true}}).populate('user sentTo');
   
-    let newMessages = {};
-  
-    // Combine both sent and received messages
-    const allMessages = [...sentMessages, ...receivedMessages];
-  
-    allMessages.forEach(function(message) {
-      // Determine who the conversation is with
-      let otherUserId;
+    let allMessages = [...sentFriendMessages];
+
+    if (!messages) {
+      messages = [];
+    }
+
+    for (var i = 0; i < messages.length; i++) {
+      var msg = await Message.findOne({_id: messages[i]}).populate('sentTo user');
       
+      msg.text = decrypt(msg.text);
+      
+      allMessages.push(msg);
+    }
+
+    // Create a new messages object and sort the messages by who the conversation is with
+    let newMessages = {};
+
+    allMessages.forEach((message) => {
+      let otherUserId;
+
+      // Determine if it's a sent or received message to figure out the other user
       if (message.sentTo._id.toString() === _id.toString()) {
-        otherUserId = message.user._id; // Received message, so other person is the sender
-  
-        // Exclude the message if it was sent by the other user AND has a 'type' key
-        if (message.type) {
-          return; // Skip this message
-        }
+          otherUserId = message.user._id; // Received message, the sender is the other person
       } else {
-        otherUserId = message.sentTo._id; // Sent message, so other person is the recipient
+          otherUserId = message.sentTo._id; // Sent message, the recipient is the other person
       }
-  
-      // Initialize array if it doesn't exist
+
+      // Initialize a new array if it doesn't exist for this user
       if (!newMessages[otherUserId]) {
-        newMessages[otherUserId] = [];
+          newMessages[otherUserId] = [];
       }
 
-      if (!message.type) {
-        const decrypted = decrypt(message.text);
-
-        message.text = decrypted;
-      }
-  
-      // Push message into the corresponding array
+      // Push the message into the corresponding array
       newMessages[otherUserId].push(message);
     });
-  
-    // Sort messages by createdOn date for each user
-    Object.keys(newMessages).forEach(userId => {
-      newMessages[userId].sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
+
+    // Sort each set of messages by 'createdOn' date for each user
+    Object.keys(newMessages).forEach((userId) => {
+        newMessages[userId].sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn)); // Ascending order by createdOn
     });
-  
+
     return newMessages;
   },  
   checkUsername: function(req, res) {
@@ -140,15 +140,39 @@ var controller = {
 
     req.body.text = encrypted;
 
-    await Message.create(req.body);
+    var msg = await Message.create(req.body);
+
+    await User.updateOne({_id: req.body.user}, {$push: {messages: msg._id}});
+    await User.updateOne({_id: req.body.sentTo}, {$push: {messages: msg._id}});
 
     io.to(req.body.chatId).emit('newMessage');
+
+    res.sendStatus(201);
+  },
+  clearConversation: async function(req, res) {
+    const chatId = req.body.chatId;
+    const user = req.body.user;
+
+    var chatMessages = await Message.find({chatId: chatId});
+
+    for (var i = 0; i < chatMessages.length; i++) {
+      var idToPull = chatMessages[i]._id;
+
+      await User.updateOne({_id: user}, {$pull: {messages: idToPull}});
+    }
 
     res.sendStatus(201);
   },
 
   fix: async function(req, res) {
     await Message.deleteMany({type: {$exists: false }});
+
+    var users = await User.find({});
+
+    users.map(function(user) {
+      user.messages = {};
+      user.save();
+    })
 
     res.send('yay');
   }
