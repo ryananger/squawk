@@ -9,7 +9,16 @@ const cors   = require('cors');
 const path   = require('path');
 const router = express.Router();
 const app    = express();
+
+var options = {
+  key:  fs.readFileSync(process.env.HTTPS_KEY),
+  cert: fs.readFileSync(process.env.HTTPS_CERT)
+};
+
 const {initSocket} = require('./io.js');
+const server = https.createServer(options, app);
+
+initSocket(server);
 
 const controller = require('./controller.js');
 
@@ -24,11 +33,6 @@ app.get('*.js', function (req, res, next) {
 router.get('/:url', function(req, res) {
   res.sendFile(dist + '/index.html');
 });
-
-var options = {
-  key:  fs.readFileSync(process.env.HTTPS_KEY),
-  cert: fs.readFileSync(process.env.HTTPS_CERT)
-};
 
 const validateClient = function (req, res, next) {
   const authCheck = req.headers.auth;
@@ -61,11 +65,7 @@ app.post('/api/messages/clearConversation', controller.clearConversation);
 
 const PORT = 4001;
 
-const server = https.createServer(options, app);
-
 http.createServer(app).listen(PORT);
 server.listen(443);
-
-initSocket(server);
 
 console.log(`Server listening at http://localhost:${PORT}`);
