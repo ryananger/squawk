@@ -13,7 +13,7 @@ const Landing = function() {
 
   return (
     <div id='landing' className='v c' onClick={handleEnter}>
-      <h2>squawk</h2>
+      <h2>skwok</h2>
       encrypted text-only messaging
     </div>
   );
