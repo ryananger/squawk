@@ -72,7 +72,7 @@ const App = function() {
       </div>
       {view !== 'landing' &&
       <div className='foot v c'>
-        support squawk, donate to $earthpunk2024
+        support skwok, donate to $earthpunk2024
       </div>}
     </div>
   );

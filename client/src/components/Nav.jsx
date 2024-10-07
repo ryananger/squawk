@@ -30,7 +30,7 @@ const Nav = function() {
 
   return (
     <div className='nav h'>
-      <h3 className='icon h c' onClick={()=>{st.setView('home')}}>squawk</h3>
+      <h3 className='icon h c' onClick={()=>{st.setView('home')}}>skwok</h3>
       {st.user && ('home search').includes(st.view) && <input ref={input} id='searchInput' placeholder='search for users' onChange={searchForUsers} autoComplete='off'/>}
       <div className='h'>
         {st.user && <icons.SettingsIcon className='icon' size={32} onClick={()=>{st.setView('settings')}}/>}
