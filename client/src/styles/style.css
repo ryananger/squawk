@@ -282,7 +282,7 @@ button:hover {
 .searchResult {
   width: 240px;
   padding: 1vh;
-  margin: 1vh;
+  margin: 4px;
   border: 1px solid;
   border-radius: 4px;
 }
